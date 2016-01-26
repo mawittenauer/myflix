@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.2'
 
-gem 'bootstrap_form'
+gem 'bootstrap_form', '2.2.0'
 gem 'bootstrap-sass', '3.3.2'
 gem 'coffee-rails'
 gem 'rails', '4.1.1'
@@ -11,6 +11,8 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'
 gem 'bcrypt'
+gem 'mocha'
+gem 'timecop'
 
 group :development do
   gem 'thin'

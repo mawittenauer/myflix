@@ -40,7 +40,7 @@ GEM
     bootstrap-sass (3.3.2.0)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
-    bootstrap_form (2.3.0)
+    bootstrap_form (2.2.0)
     builder (3.2.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -73,9 +73,12 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (1.25.1)
     minitest (5.3.4)
+    mocha (1.1.0)
+      metaclass (~> 0.0.1)
     multi_json (1.10.1)
     pg (0.17.0)
     polyglot (0.3.5)
@@ -149,6 +152,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    timecop (0.8.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -167,11 +171,12 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (= 3.3.2)
-  bootstrap_form
+  bootstrap_form (= 2.2.0)
   coffee-rails
   database_cleaner (= 1.4.1)
   haml-rails
   jquery-rails
+  mocha
   pg
   pry
   pry-nav
@@ -181,6 +186,7 @@ DEPENDENCIES
   sass-rails
   shoulda-matchers (= 2.7.0)
   thin
+  timecop
   uglifier
   vcr (= 2.9.3)
 
