@@ -5,12 +5,8 @@ class QueueItem < ActiveRecord::Base
   delegate :category, to: :video
   delegate :title, to: :video, prefix: :video
   
-  def video_title
-    video.title
-  end
-  
   def rating
-    review = Review.where(user_id: user.id, video_id: video.id).first
+    review = Review.find_by(user_id: user.id, video_id: video.id)
     review.rating if review
   end
   
