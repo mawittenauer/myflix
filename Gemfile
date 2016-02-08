@@ -32,9 +32,9 @@ group :test do
   gem 'database_cleaner', '1.4.1'
   gem 'shoulda-matchers', '2.7.0'
   gem 'vcr', '2.9.3'
+  gem 'capybara'
 end
 
 group :production do
   gem 'rails_12factor'
 end
-

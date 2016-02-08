@@ -20,8 +20,8 @@ describe UsersController do
         expect(User.count).to eq(1)
       end
       
-      it "redirects to sign in page" do
-        expect(response).to redirect_to sign_in_path
+      it_behaves_like "requires sign in" do
+        let(:action) {}
       end
     end
     
