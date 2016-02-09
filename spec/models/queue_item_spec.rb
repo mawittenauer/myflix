@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe QueueItem do
-  it { should belong_to(:user) }
-  it { should belong_to (:video) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to belong_to (:video) }
   
   describe "#video_title" do
     it "returns the title of the queue item video" do
