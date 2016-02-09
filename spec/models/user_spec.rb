@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe User do
 
-  it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:password) }
-  it { should validate_presence_of(:full_name) }
-  it { should validate_uniqueness_of(:email) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_presence_of(:password) }
+  it { is_expected.to validate_presence_of(:full_name) }
+  it { is_expected.to validate_uniqueness_of(:email) }
   
   describe "#queued_video?" do
     it "returns true when the users queued the video" do

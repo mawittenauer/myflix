@@ -21,7 +21,6 @@ describe VideosController do
     
     it_behaves_like "requires sign in" do
       let(:action) do
-        futurama = Fabricate(:video, title: "Futurama")
         get :search, search_term: "rama"
       end
     end

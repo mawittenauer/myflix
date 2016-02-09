@@ -1,3 +1,3 @@
 Fabricator(:category) do
-  name { Faker::Lorem.words(1).join }
+  name { Faker::Lorem.word }
 end
