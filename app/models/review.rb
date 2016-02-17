@@ -3,4 +3,6 @@ class Review < ActiveRecord::Base
   belongs_to :user
   
   validates_presence_of :content, :rating
+  
+  delegate :title, to: :video, prefix: :video
 end

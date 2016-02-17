@@ -22,4 +22,32 @@ describe User do
     end
   end
   
+  describe "#number_of_queue_items" do
+    let(:user) { Fabricate(:user) }
+    it "returns 3 when the user has three videos" do
+      Fabricate(:queue_item, user_id: user.id)
+      Fabricate(:queue_item, user_id: user.id)
+      Fabricate(:queue_item, user_id: user.id)
+      expect(user.number_of_queue_items).to eq(3)
+    end
+    
+    it "returns 0 when the user has no videos" do
+      expect(user.number_of_queue_items).to eq(0)
+    end
+  end
+  
+  describe "#number_of_reviews" do
+    let(:user) { Fabricate(:user) }
+    it "returns 3 when the user has 3 reviews" do
+      Fabricate(:review, user_id: user.id)
+      Fabricate(:review, user_id: user.id)
+      Fabricate(:review, user_id: user.id)
+      expect(user.number_of_reviews).to eq(3)
+    end
+    
+    it "returns 0 when the user has no reviews" do
+      expect(user.number_of_reviews).to eq(0)
+    end
+  end
+  
 end
