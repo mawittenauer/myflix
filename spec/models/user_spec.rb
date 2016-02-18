@@ -22,4 +22,43 @@ describe User do
     end
   end
   
+  describe "#number_of_queue_items" do
+    let(:user) { Fabricate(:user) }
+    it "returns 3 when the user has three videos" do
+      Fabricate.times(3, :queue_item, user_id: user.id)
+      expect(user.number_of_queue_items).to eq(3)
+    end
+    
+    it "returns 0 when the user has no videos" do
+      expect(user.number_of_queue_items).to eq(0)
+    end
+  end
+  
+  describe "#number_of_reviews" do
+    let(:user) { Fabricate(:user) }
+    it "returns 3 when the user has 3 reviews" do
+      Fabricate.times(3, :review, user_id: user.id)
+      expect(user.number_of_reviews).to eq(3)
+    end
+    
+    it "returns 0 when the user has no reviews" do
+      expect(user.number_of_reviews).to eq(0)
+    end
+  end
+  
+  describe "#follows?" do
+    it "returns true if the user has a following relationships with another user" do
+      mike = Fabricate(:user)
+      charlie = Fabricate(:user)
+      Fabricate(:relationship, follower: mike, leader: charlie)
+      expect(mike.follows?(charlie)).to be_truthy
+    end
+    
+    it "returns false if the user does not have a following relationship with another user" do
+      mike = Fabricate(:user)
+      charlie = Fabricate(:user)
+      expect(mike.follows?(charlie)).to be_falsey
+    end
+  end
+  
 end
