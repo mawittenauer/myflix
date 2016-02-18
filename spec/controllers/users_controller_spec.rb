@@ -50,7 +50,7 @@ describe UsersController do
         set_current_user
         user = Fabricate(:user)
         get :show, id: user.id
-        expect(assigns(:user)).to be_instance_of(User)
+        expect(assigns(:user)).to eq(user)
       end
       
     end

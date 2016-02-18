@@ -12,7 +12,7 @@
       - @relationships.each do |relationship|
         %tr
           %td
-            %img(src="http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(relationship.leader.email.downcase)}?s=40")
+            %img(src="#{gravatar_url_for(relationship.leader)}")
             = link_to relationship.leader.full_name, relationship.leader
           %td.extra-padding= relationship.leader.queue_items.count
           %td.extra-padding= relationship.leader.leading_relationships.count

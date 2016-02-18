@@ -78,25 +78,3 @@ describe RelationshipsController do
   end
   
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
