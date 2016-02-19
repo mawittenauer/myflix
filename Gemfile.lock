@@ -83,6 +83,8 @@ GEM
     json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -199,6 +201,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   launchy
+  letter_opener
   mocha
   pg
   pry
