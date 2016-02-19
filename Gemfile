@@ -15,6 +15,7 @@ gem 'mocha'
 gem 'timecop'
 gem 'fabrication'
 gem 'faker'
+gem 'puma'
 
 group :development do
   gem 'thin'
