@@ -13,8 +13,7 @@ class PasswordResetsController < ApplicationController
     user = User.find_by(token: params[:token])
     if user
       user.password = params[:password]
-      user.generate_token
-      user.save
+      user.delete_token
       flash[:success] = "Your password has been changed. Please sign in."
       redirect_to sign_in_path
     else

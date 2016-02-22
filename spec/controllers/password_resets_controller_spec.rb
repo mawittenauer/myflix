@@ -3,8 +3,8 @@ require 'spec_helper'
 describe PasswordResetsController do
   describe "GET show" do
     it "renders show template if the token is valid" do
-      alice = Fabricate(:user)
-      get :show, id: alice.token
+      alice = Fabricate(:user, token: '12345')
+      get :show, id: '12345'
       expect(response).to render_template :show
     end
     it "redirects to the expired token page if the token is not valid" do
@@ -13,8 +13,8 @@ describe PasswordResetsController do
     end
     
     it "sets @token" do
-      alice = Fabricate(:user)
-      get :show, id: alice.token
+      alice = Fabricate(:user, token: '12345')
+      get :show, id: '12345'
       expect(assigns(:token)).to eq(alice.token)
     end
   end
@@ -44,6 +44,12 @@ describe PasswordResetsController do
         alice.update_column(:token, '12345')
         post :create, token: '12345', password: 'new_password'
         expect(alice.reload.token).not_to eq('12345')
+      end
+      it "deletes the users token" do
+        alice = Fabricate(:user, password: 'old_password')
+        alice.update_column(:token, '12345')
+        post :create, token: '12345', password: 'new_password'
+        expect(alice.reload.token).to be_nil
       end
     end
     context "with invalid token" do
