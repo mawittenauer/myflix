@@ -7,6 +7,11 @@ describe User do
   it { is_expected.to validate_presence_of(:full_name) }
   it { is_expected.to validate_uniqueness_of(:email) }
   
+  it "generates a random token" do
+    alice = Fabricate(:user)
+    expect(alice.token).to be_present
+  end
+  
   describe "#queued_video?" do
     it "returns true when the users queued the video" do
       user = Fabricate(:user)
