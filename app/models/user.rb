@@ -33,4 +33,12 @@ class User < ActiveRecord::Base
   def can_follow?(another_user)
     !(self.follows?(another_user) || self == another_user)
   end
+  
+  def generate_token
+    update_attribute(:token, SecureRandom.urlsafe_base64)
+  end
+  
+  def delete_token
+    update_attribute(:token, nil)
+  end
 end
