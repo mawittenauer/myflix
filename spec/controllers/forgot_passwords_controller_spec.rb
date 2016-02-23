@@ -47,7 +47,7 @@ describe ForgotPasswordsController do
       end
       
       it "shows an error message" do
-        expect(flash[:danger]).to eq("There is no user with that email in the system.")
+        expect(flash[:danger]).to be_present
       end
     end
   end

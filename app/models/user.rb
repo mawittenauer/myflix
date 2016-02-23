@@ -35,10 +35,10 @@ class User < ActiveRecord::Base
   end
   
   def generate_token
-    self.update_attribute(:token, SecureRandom.urlsafe_base64)
+    update_attribute(:token, SecureRandom.urlsafe_base64)
   end
   
   def delete_token
-    self.update_attribute(:token, nil)
+    update_attribute(:token, nil)
   end
 end
