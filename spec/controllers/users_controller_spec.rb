@@ -12,6 +12,9 @@ describe UsersController do
   describe "POST create" do
     
     context "with valid input" do
+      
+      after { ActionMailer::Base.deliveries.clear }
+      
       before do 
         post :create, user: Fabricate.attributes_for(:user)
       end
