@@ -18,6 +18,7 @@ gem 'faker'
 gem 'puma'
 gem 'sidekiq'
 gem 'unicorn'
+gem 'redis'
 
 group :development do
   gem 'thin'
