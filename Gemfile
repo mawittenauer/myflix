@@ -19,6 +19,7 @@ gem 'puma'
 gem 'sidekiq'
 gem 'unicorn'
 gem 'redis'
+gem 'sentry-raven'
 
 group :development do
   gem 'thin'
