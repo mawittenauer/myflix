@@ -13,7 +13,7 @@ describe UsersController do
     
     context "with valid input" do
       
-      after { ActionMailer::Base.deliveries.clear }
+      after { Sidekiq::Worker.clear_all }
       
       before do 
         post :create, user: Fabricate.attributes_for(:user)
@@ -52,28 +52,16 @@ describe UsersController do
     end
     
     context "sending emails" do
-      after { ActionMailer::Base.deliveries.clear }
+      after { Sidekiq::Worker.clear_all }
       
       it "sends an email" do
         post :create, user: Fabricate.attributes_for(:user, email: "mike@example.com", full_name: "Mike Wittenauer")
-        expect(ActionMailer::Base.deliveries).to_not be_empty
-      end
-      
-      it "sends the email to the correct user" do
-        post :create, user: Fabricate.attributes_for(:user, email: "mike@example.com", full_name: "Mike Wittenauer")
-        message = ActionMailer::Base.deliveries.last
-        expect(message.to).to eq(["mike@example.com"])
-      end
-      
-      it "sends the email containg user's name" do
-        post :create, user: Fabricate.attributes_for(:user, email: "mike@example.com", full_name: "Mike Wittenauer")
-        message = ActionMailer::Base.deliveries.last
-        expect(message.body).to have_content "Mike Wittenauer"
+        expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq(1)
       end
       
       it "doesn't send an email when input is invalid" do
         post :create, user: Fabricate.attributes_for(:user, email: "", full_name: "Mike Wittenauer")
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq(0)
       end
     end
     

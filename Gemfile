@@ -16,6 +16,7 @@ gem 'timecop'
 gem 'fabrication'
 gem 'faker'
 gem 'puma'
+gem 'sidekiq'
 
 group :development do
   gem 'thin'
