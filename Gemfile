@@ -17,6 +17,7 @@ gem 'fabrication'
 gem 'faker'
 gem 'puma'
 gem 'sidekiq'
+gem 'unicorn'
 
 group :development do
   gem 'thin'
