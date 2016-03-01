@@ -1,6 +1,4 @@
-Myflix::Application.configure do
-  ENV["REDISTOGO_URL"] = 'redis://mikewittenauer:maw22828158@my.host:9627'
-  
+Myflix::Application.configure do  
   config.cache_classes = false
 
   # Show full error reports and disable caching
