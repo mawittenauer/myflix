@@ -1,0 +1,19 @@
+machine:
+  ruby:
+    version: 2.1.2
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app rocky-eyrie-56653
+      - heroku pg:backups capture --app rocky-eyrie-56653
+      - git push git@heroku.com:rocky-eyrie-56653.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app rocky-eyrie-56653
+      - heroku maintenance:off --app rocky-eyrie-56653
+  staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app stark-stream-82859
+      - git push git@heroku.com:stark-stream-82859.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app stark-stream-82859
+      - heroku maintenance:off --app stark-stream-82859
