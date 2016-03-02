@@ -19,6 +19,6 @@ module Myflix
 end
 
 Raven.configure do |config|
-  config.dsn = ENV['RAVEN_DNS']
+  config.dsn = 'https://d18e280c3a6a4ac78277e7d4a354b198:c829521f38334b599bc690da1cd2602b@app.getsentry.com/68943'
   config.environments = ['staging', 'production']
 end

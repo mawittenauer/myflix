@@ -13,7 +13,7 @@ describe UsersController do
     
     context "with valid input" do
       
-      after { Sidekiq::Worker.clear_all }
+      after { ActionMailer::Base.deliveries.clear }
       
       before do 
         post :create, user: Fabricate.attributes_for(:user)
@@ -52,16 +52,16 @@ describe UsersController do
     end
     
     context "sending emails" do
-      after { Sidekiq::Worker.clear_all }
+      after { ActionMailer::Base.deliveries.clear }
       
       it "sends an email" do
         post :create, user: Fabricate.attributes_for(:user, email: "mike@example.com", full_name: "Mike Wittenauer")
-        expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq(1)
+        expect(ActionMailer::Base.deliveries).to_not be_empty
       end
       
       it "doesn't send an email when input is invalid" do
         post :create, user: Fabricate.attributes_for(:user, email: "", full_name: "Mike Wittenauer")
-        expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq(0)
+        expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
     

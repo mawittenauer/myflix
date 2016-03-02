@@ -17,7 +17,7 @@ describe ForgotPasswordsController do
     
     context "with existing email" do
             
-      after { Sidekiq::Worker.clear_all }
+      after { ActionMailer::Base.deliveries.clear }
       
       it "should redirect to the forgot password confirmation page" do
         joe = Fabricate(:user, email: "joe@example.com")
@@ -34,7 +34,7 @@ describe ForgotPasswordsController do
       it "sends an email" do
         joey = Fabricate(:user, email: "joe@example.com")
         post :create, email: "joe@example.com"
-        expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq(1)
+        expect(ActionMailer::Base.deliveries).to_not be_empty
       end
     end
     

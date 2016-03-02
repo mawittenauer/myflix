@@ -25,7 +25,7 @@ describe InvitationsController do
     
     context "with valid input" do
       
-      after { Sidekiq::Worker.clear_all }
+      after { ActionMailer::Base.deliveries.clear }
       
       it "redirects to the invitation new page" do
         set_current_user
@@ -42,7 +42,7 @@ describe InvitationsController do
       it "sends an email to the recipient" do
         set_current_user
         post :create, invitation: { recipient_email: "mike@example.com", recipient_name: "mike wittenauer", message: "Join Myflix! :)" }
-        expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq(1)
+        expect(ActionMailer::Base.deliveries.last.to).to eq(['mike@example.com'])
       end
             
       it "sets the flash success message" do
