@@ -17,3 +17,4 @@ deployment:
       - git push git@heroku.com:stark-stream-82859.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate --app stark-stream-82859
       - heroku maintenance:off --app stark-stream-82859
+      
