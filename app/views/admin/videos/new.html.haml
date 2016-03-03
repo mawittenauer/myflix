@@ -2,7 +2,7 @@
   .container
     .row
       .col-md-10.col-md-offset-1
-        = bootstrap_form_for [:admin, @video], html: { class: "form-horizontal" } do |f|
+        = bootstrap_form_for([:admin, @video], layout: :horizontal, control_col: "col-sm-6") do |f|
           %ul.nav.nav-tabs
             %li
               %a(href="") Recent Payments
@@ -10,27 +10,19 @@
               %a(href="") Add a New Video
           %br
           %fieldset
-            .row
-              .col-sm-3
-                = f.text_field :title
-            .row
+            = f.text_field :title
+            = f.select :category_id, options_for_select(Category.all.map {|category| [category.name, category.id]})
+            = f.text_area :description, rows: 8
+            .form-group
+              %label.control-label.col-sm-3 Large Cover
               .col-sm-6
-                = f.select :category_id, options_for_select(Category.all.map {|category| [category.name, category.id]})
-            .row
+                %col.btn.btn-file
+                  %input.form-control(type="file")
+            .form-group
+              %label.control-label.col-sm-3 Small Cover
               .col-sm-6
-                = f.text_area :description, rows: 8
-            .row
-              .form-group
-                %label.control-label.col-sm-3 Large Cover
-                .col-sm-6
-                  %col.btn.btn-file
-                    %input.form-control(type="file")
-            .row
-              .form-group
-                %label.control-label.col-sm-3 Small Cover
-                .col-sm-6
-                  %col.btn.btn-file
-                    %input.form-control(type="file")
+                %col.btn.btn-file
+                  %input.form-control(type="file")
 
           %fieldset.actions.form-group
             .col-sm-6.col-md-offset-3
