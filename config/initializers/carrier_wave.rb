@@ -18,10 +18,6 @@ CarrierWave.configure do |config|
       secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
       region:            ENV.fetch('AWS_REGION') # Required
     }
-
-    # Optional: Signing of download urls, e.g. for serving private
-    # content through CloudFront.
-    config.aws_signer = -> (unsigned_url, options) { Aws::CF::Signer.sign_url unsigned_url, options }
   else
     config.storage = :file
     config.enable_processing = Rails.env.development?
