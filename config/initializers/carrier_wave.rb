@@ -23,3 +23,13 @@ CarrierWave.configure do |config|
     config.enable_processing = Rails.env.development?
   end
 end
+
+CarrierWave::Uploader::Download.module_eval do
+  def process_uri(uri)
+    begin
+      URI.parse(uri)
+    rescue
+      URI.parse(URI.escape(URI.unescape(uri)))
+    end
+  end
+end
