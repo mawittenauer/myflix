@@ -20,6 +20,9 @@ gem 'sidekiq'
 gem 'unicorn'
 gem 'redis'
 gem 'sentry-raven'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'carrierwave-aws'
 
 group :development do
   gem 'thin'
