@@ -11,8 +11,7 @@ describe Admin::VideosController do
     it "sets @video to new video" do
       set_current_admin
       get :new
-      expect(assigns(:video)).to be_instance_of Video
-      expect(assigns(:video)).to be_new_record
+      expect(assigns(:video)).to be_a_new Video
     end
     it "sets the flash error message for regular user" do
       set_current_user
@@ -44,7 +43,7 @@ describe Admin::VideosController do
         expect(category.videos.count).to eq(1)
       end
       it "sets the flash success message" do
-        expect(flash[:success]).to_not be_empty
+        expect(flash[:success]).to be_present
       end
     end
     
@@ -65,7 +64,7 @@ describe Admin::VideosController do
         expect(assigns(:video)).to be_new_record
       end
       it "sets the flash danger message" do
-        expect(flash[:danger]).to_not be_empty
+        expect(flash[:danger]).to be_present
       end
     end
   end
