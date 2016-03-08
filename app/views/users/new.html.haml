@@ -9,6 +9,7 @@
           = f.password_field :password
           = f.text_field :full_name, label: "Full Name"
           = hidden_field_tag :invitation_token, @invitation_token
-          = f.form_group do
-            = f.submit "Sign Up"
+        .form-group
+          .col-sm-10.col-sm-offset-2
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV['STRIPE_PUBLISHABLE_KEY']}" data-amount="999" data-name="Myflix Sign Up Charge" data-description="One Month ($9.99)" data-image="/128x128.png" data-locale="auto"></script>
               
