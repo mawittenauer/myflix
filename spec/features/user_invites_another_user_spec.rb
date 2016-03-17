@@ -9,9 +9,7 @@ feature "User invites a friend" do
     friend_accepts_invitation
     
     friend_signs_in
-    
-    friend_signs_in
-    
+        
     friend_should_follow(alice)
     
     inviter_should_follow_friend(alice)
