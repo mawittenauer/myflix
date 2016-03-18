@@ -23,6 +23,8 @@ gem 'sentry-raven'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'carrierwave-aws'
+gem 'stripe'
+gem 'figaro'
 
 group :development do
   gem 'thin'
@@ -44,6 +46,8 @@ group :test do
   gem 'capybara'
   gem 'capybara-email'
   gem 'launchy'
+  gem 'webmock'
+  gem 'selenium-webdriver'
 end
 
 group :production do
