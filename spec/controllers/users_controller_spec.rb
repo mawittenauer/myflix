@@ -107,7 +107,7 @@ describe UsersController do
         expect(assigns(:user)).to be_instance_of(User)
       end
       it "does not charge the card" do
-        StripeWrapper::Charge.should_not_receive(:create)
+        expect(StripeWrapper::Charge).to_not receive(:create)
       end
     end
   end
