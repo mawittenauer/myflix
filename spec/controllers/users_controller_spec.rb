@@ -9,48 +9,7 @@ describe UsersController do
     end
   end
   
-  describe "POST create" do
-    
-    context "with valid personal info and valid card" do
-      
-      after { ActionMailer::Base.deliveries.clear }
-      let(:charge) { double(:charge, successful?: true) }
-      before do 
-        StripeWrapper::Charge.stub(:create).and_return(charge)
-        post :create, user: Fabricate.attributes_for(:user)
-      end
-      
-      it "creates the user" do
-        expect(User.count).to eq(1)
-      end
-      
-      it "makes the user follow the inviter" do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice, recipient_email: "joe@example.com")
-        post :create, user: { email: 'joe@example.com', password: 'password', 
-                              full_name: 'Joe Doe' }, invitation_token: invitation.token
-        joe = User.find_by(email: 'joe@example.com')
-        expect(joe.follows?(alice)).to be_truthy
-      end
-      
-      it "makes the inviter follow the user" do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice, recipient_email: "joe@example.com")
-        post :create, user: { email: 'joe@example.com', password: 'password', 
-                              full_name: 'Joe Doe' }, invitation_token: invitation.token
-        joe = User.find_by(email: 'joe@example.com')
-        expect(alice.follows?(joe)).to be_truthy
-      end
-      
-      it "expires the invitation upon acceptance" do
-        alice = Fabricate(:user)
-        invitation = Fabricate(:invitation, inviter: alice, recipient_email: "joe@example.com")
-        post :create, user: { email: 'joe@example.com', password: 'password', 
-                              full_name: 'Joe Doe' }, invitation_token: invitation.token
-        joe = User.find_by(email: 'joe@example.com')
-        expect(Invitation.first.token).to be_nil
-      end
-    end
+  describe "POST create" do      
     
     context "sending emails" do
       after { ActionMailer::Base.deliveries.clear }
