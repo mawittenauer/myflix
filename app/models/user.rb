@@ -22,10 +22,6 @@ class User < ActiveRecord::Base
     queue_items.count
   end
   
-  def number_of_reviews
-    reviews.count
-  end
-  
   def follows?(another_user)
     following_relationships.map(&:leader).include?(another_user)
   end

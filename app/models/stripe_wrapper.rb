@@ -13,7 +13,7 @@ module StripeWrapper
         response = Stripe::Charge.create(
           amount: options[:amount],
           currency: 'usd',
-          source: options[:card],
+          card: options[:card],
           description: options[:description]
         )
         new(response: response)

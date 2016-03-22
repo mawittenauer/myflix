@@ -4,6 +4,11 @@ feature "User Signs Up", { vcr: true, js: true } do
   background do
     visit register_path
   end
+  
+  after do
+    ActionMailer::Base.deliveries.clear
+  end
+  
   scenario "with valid user info and valid card" do
     fill_in_user("john@example.com", "123456", "John Doe")
     fill_in_credit_card("4242424242424242")
