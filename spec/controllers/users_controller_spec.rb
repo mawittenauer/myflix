@@ -9,13 +9,13 @@ describe UsersController do
     end
   end
   
-  describe "POST create" do      
+  describe "POST create", :vcr do      
     
     context "sending emails" do
       after { ActionMailer::Base.deliveries.clear }
-      let(:charge) { double(:charge, successful?: true) }
+      let(:customer) { double(:customer, successful?: true) }
         
-      before { StripeWrapper::Charge.stub(:create).and_return(charge) }
+      before { StripeWrapper::Customer.stub(:create).and_return(customer) }
       
       it "sends an email" do
         post :create, user: Fabricate.attributes_for(:user, email: "mike@example.com", full_name: "Mike Wittenauer")
@@ -30,20 +30,20 @@ describe UsersController do
     
     context "valid personal info and declined card" do
       it "does not create a new user" do
-        charge = double(:charge, successful?: false, error_message: "Your card was declined.")
-        StripeWrapper::Charge.stub(:create).and_return(charge)
+        customer = double(:customer, successful?: false, error_message: "Your card was declined.")
+        StripeWrapper::Customer.stub(:create).and_return(customer)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '1231241'
         expect(User.count).to eq(0)
       end
       it "renders the new template" do
-        charge = double(:charge, successful?: false, error_message: "Your card was declined.")
-        StripeWrapper::Charge.stub(:create).and_return(charge)
+        customer = double(:customer, successful?: false, error_message: "Your card was declined.")
+        StripeWrapper::Customer.stub(:create).and_return(customer)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '1231241'
         expect(response).to render_template :new
       end
       it "sets the flash error messsage" do
-        charge = double(:charge, successful?: false, error_message: "Your card was declined.")
-        StripeWrapper::Charge.stub(:create).and_return(charge)
+        customer = double(:customer, successful?: false, error_message: "Your card was declined.")
+        StripeWrapper::Customer.stub(:create).and_return(customer)
         post :create, user: Fabricate.attributes_for(:user), stripeToken: '1231241'
         expect(flash[:danger]).to be_present
       end

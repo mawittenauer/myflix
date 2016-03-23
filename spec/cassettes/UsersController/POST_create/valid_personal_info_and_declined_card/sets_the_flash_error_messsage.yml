@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: card=tok_17rzknFz4N3HhUVcnVbSjL0T&email=john%40example.com&plan=1
+      string: card=1231241&email=cierra_reinger%40auer.info&plan=1
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -22,20 +22,20 @@ http_interactions:
         Mikes-MacBook-Pro.local 15.3.0 Darwin Kernel Version 15.3.0: Thu Dec 10 18:40:58
         PST 2015; root:xnu-3248.30.4~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '65'
+      - '52'
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 400
+      message: Bad Request
     headers:
       Server:
       - nginx
       Date:
-      - Wed, 23 Mar 2016 00:21:42 GMT
+      - Wed, 23 Mar 2016 00:14:52 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '134'
+      - '119'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_88GH65VLcOfPTP
+      - req_88GADf3Uc4nnh8
       Stripe-Version:
       - '2016-03-07'
     body:
@@ -57,12 +57,11 @@ http_interactions:
       string: |
         {
           "error": {
-            "message": "Your card was declined.",
-            "type": "card_error",
-            "param": "",
-            "code": "card_declined"
+            "type": "invalid_request_error",
+            "message": "No such token: 1231241",
+            "param": "card"
           }
         }
     http_version: 
-  recorded_at: Wed, 23 Mar 2016 00:21:42 GMT
+  recorded_at: Wed, 23 Mar 2016 00:14:52 GMT
 recorded_with: VCR 2.9.3
