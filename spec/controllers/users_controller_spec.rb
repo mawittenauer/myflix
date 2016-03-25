@@ -13,7 +13,7 @@ describe UsersController do
     
     context "sending emails" do
       after { ActionMailer::Base.deliveries.clear }
-      let(:customer) { double(:customer, successful?: true) }
+      let(:customer) { double(:customer, successful?: true, customer_token: "123456") }
         
       before { StripeWrapper::Customer.stub(:create).and_return(customer) }
       
