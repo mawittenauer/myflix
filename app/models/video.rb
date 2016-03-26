@@ -32,6 +32,17 @@ class Video < ActiveRecord::Base
       search[:query][:multi_match][:fields] << "reviews.content"
     end
     
+    if options[:rating_from].present? || options[:rating_to].present?
+      search[:filter] = {
+        range: {
+          rating: {
+            gte: (options[:rating_from] if options[:rating_from].present?),
+            lte: (options[:rating_to] if options[:rating_to].present?)
+          }  
+        }  
+      }
+    end
+    
     __elasticsearch__.search(search)
   end
   
@@ -41,6 +52,7 @@ class Video < ActiveRecord::Base
   
   def as_indexed_json(options = {})
     as_json(
+      methods: [:rating],
       only: [:title, :description, :reviews], 
       include: {
         reviews: { only: [:content] } 
