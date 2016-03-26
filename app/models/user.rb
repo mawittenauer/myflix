@@ -41,4 +41,8 @@ class User < ActiveRecord::Base
   def delete_token
     update_attribute(:token, nil)
   end
+  
+  def deactivate!
+    update_column(:active, false)
+  end
 end
