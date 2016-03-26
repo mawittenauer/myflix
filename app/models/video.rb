@@ -17,16 +17,21 @@ class Video < ActiveRecord::Base
     where("title ILIKE ?", "%#{search_term}%").order("created_at DESC")
   end
   
-  def self.search(query)
+  def self.search(query, options = {})
     search = {
       query: {
         multi_match: {
           query: query,
-          fields: ["title", "description"],
+          fields: ["title^100", "description^50"],
           operator: "and"
         }
       }
     }
+    
+    if query.present? && options[:reviews].present?
+      search[:query][:multi_match][:fields] << "reviews.content"
+    end
+    
     __elasticsearch__.search(search)
   end
   
@@ -35,6 +40,11 @@ class Video < ActiveRecord::Base
   end
   
   def as_indexed_json(options = {})
-    as_json(only: [:title, :description])
+    as_json(
+      only: [:title, :description, :reviews], 
+      include: {
+        reviews: { only: [:content] } 
+      }
+    )
   end
 end
