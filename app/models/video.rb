@@ -17,7 +17,24 @@ class Video < ActiveRecord::Base
     where("title ILIKE ?", "%#{search_term}%").order("created_at DESC")
   end
   
+  def self.search(query)
+    search = {
+      query: {
+        multi_match: {
+          query: query,
+          fields: ["title", "description"],
+          operator: "and"
+        }
+      }
+    }
+    __elasticsearch__.search(search)
+  end
+  
   def rating
     reviews.average(:rating).round(1) if reviews.average(:rating)
+  end
+  
+  def as_indexed_json(options = {})
+    as_json(only: [:title, :description])
   end
 end
